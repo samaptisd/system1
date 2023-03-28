@@ -1,0 +1,267 @@
+{% extends 'layout.html' %}
+
+{% block title %}Daily Checklist{% endblock %}
+{% block content %}
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>FMS: SCM HOME</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+      <link href="path/to/bootstrap/css/bootstrap.css" rel="stylesheet">
+<script src="path/to/jquery/jquery-1.8.2.min.js"></script>
+<script src="path/to/bootstrap/js/bootstrap.min.js"></script>
+
+      <link href="path/to/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="path/to/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+
+
+       <script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    var dataTable = $('#data_table').DataTable();
+    $('#data_table').editable({
+        container:'body',
+        selector:'td.status',
+<!--        url:'/fms_scm_rh_gm_approval',-->
+        title:'Status',
+<!--        type:'POST',-->
+
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#data_table').editable({
+        container:'body',
+        selector:'td.remarks',
+<!--        url:'/fms_scm_rh_gm_approval',-->
+        title:'Remarks',
+<!--        type:'POST',-->
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+<!--    $('#sample_data').editable({-->
+<!--        container:'body',-->
+<!--        selector:'td.status',-->
+<!--        url:'/updateemployee',-->
+<!--        title:'Status',-->
+<!--        type:'POST',-->
+<!--        validate:function(value){-->
+<!--            if($.trim(value) == '')-->
+<!--            {-->
+<!--                return 'This field is required';-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+
+<!--    $('#group').editable();-->
+
+
+});
+
+
+
+</script>
+
+
+    </head>
+    <body>
+        <div class="container">
+
+
+            <section class="main">
+     <center> <div class="main-top">
+        <h1>FMS: SCM Steps</h1>
+         <h2>User ID: {{username}}</h2>
+         <div style="font-size:50px;"><b>Step: <u>RH/GM Approval</b></u></div>
+      </div></center>
+
+        <center><div class="card"style="width:70%">
+<!--          <img src="./pic/img1.jpg">-->
+          <b><h4>Total Pending</h4></b>
+<!--          <p>Ui designer</p>-->
+          <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                          <div class="tbl-header">
+                        <table  class="table table-bordered table-striped"style="width:50%">
+                            <thead>
+                                <tr>
+                                    <th>Total</th>
+                            <th>Daily</th>
+                            <th>Weekly</th>
+                            <th>Monthly</th>
+                            <th>Quaterly</th>
+                            <th>Yearly</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbl-content">
+                               {% for row in context %}
+
+                                <td >{{row.Total}}</td>
+                                <td >{{row.Daily}}</td>
+                                 <td >{{row.Weekly}}</td>
+                                <td >{{row.Monthly}}</td>
+                               <td >{{row.Quaterly}}</td>
+                               <td >{{row.Yearly}}</td>
+
+         </tr>
+           {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  </div></center>
+            <div class="panel panel-default">
+                <div class="panel-heading">DataTable</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                          <div class="tbl-header">
+                        <table id="data_table" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Task_ID</th>
+                                    <th>Name</th>
+                            <th>Task</th>
+                            <th>Frequency</th>
+                            <th>Planned</th>
+                            <th>Status</th>
+                            <th>Remarks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbl-content">
+
+                                 {% for row in employee %}
+<tr>
+                                <<td data-pk="{{row.Task_Id}}">{{row.Task_Id}}</td>
+         <td data-name="name" class="name" data-type="text" data-pk="{{row.Task_Id}}">{{row.Name}}</td>
+          <td data-name="frequency" class="frequency" data-type="text" data-pk="{{row.Task_Id}}">{{row.Freq}}</td>
+            <td data-name="task" class="task" data-type="text" data-pk="{{row.Task_Id}}">{{row.Task_Name}}</td>
+           <td data-name="planned" class="planned" data-type="text" data-pk="{{row.Task_Id}}">{{row.Plan_Time}}</td>
+
+<!--          <td>-->
+
+<!--              <a href="#" id="group" data-type="select" data-name="Status" data-pk="{{row.Task_Id}}" data-value="5" data-source="{'Work Done': 'Work Done', 'No Work': 'No Work'}" data-url="/updateemployee"  data-original-title="Select Status">{{row.user_status}}</a>-->
+<!--          </td>-->
+
+            <td data-name="Status" class="status" data-type="select" data-source="{'Work Done': 'Work Done', 'No Work': 'No Work'}" data-pk="{{row.Task_Id}}">{{row.user_status}}</td>
+           <td data-name="Remarks" class="remarks" data-type="text" data-pk="{{row.Task_Id}}">{{row.user_remarks}}</td>
+            <td><button class="btnsave" id="{{row.SO_No}}">Save</button></td>
+
+         </tr>
+
+           {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+            </section>
+        </div>
+    </body>
+
+<style>
+
+    table {
+	width: 750px;
+	border-collapse: collapse;
+	margin:50px auto;
+	color: black;
+
+	}
+
+th {
+	background: #3498db;
+	color: white;
+	font-weight: bold;
+	position: fixed;
+  left: 0;
+  z-index: 1;
+	}
+
+td, th {
+	padding: 10px;
+	border: 1px solid #000802;
+	text-align: left;
+	font-size: 18px;
+	color: black;
+	position: sticky;
+  left: 0;
+  z-index: 1;
+	}
+
+.labels tr td {
+	background-color: #2cc16a;
+	font-weight: bold;
+	color: #000802;
+	color: black;
+}
+
+.label tr td label {
+	display: block;
+	color: black;
+}
+
+
+[data-toggle="toggle"] {
+	display: Click Here;
+}
+
+.panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+.panel-panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+<!--.table-wrapper {-->
+
+<!--    overflow-y: scroll;-->
+<!--    overflow-x: scroll;-->
+<!--    height: fit-content;-->
+<!--    max-height: 66.4vh;-->
+
+<!--    margin-top: 22px;-->
+
+<!--    margin: 15px;-->
+<!--    padding-bottom: 20px;-->
+
+<!--}-->
+
+
+</style>
+</html>
+{% endblock %}

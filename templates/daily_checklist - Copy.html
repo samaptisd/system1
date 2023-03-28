@@ -1,0 +1,144 @@
+{% extends 'layout.html' %}
+
+{% block title %}Daily Checklist{% endblock %}
+{% block content %}
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>DAILY TASK</title>
+
+    <!-- CSS files-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- page content -->
+ <br>
+    <h1 class="col-md-12 text-center" style="color: black">Task table</h1>
+
+
+    <br>
+    <div class="table-responsive col-md-12">
+
+<table class="table-success text-center" id="DyanmicTable">
+	<thead>
+		<tr>
+			<th class="text-center">
+				Task_ID
+			</th>
+			<th class="text-center">
+				Name
+			</th>
+			<th class="text-center">
+				Frequency
+			</th>
+						<th class="text-center">
+				Task
+			</th>
+
+						<th class="text-center">
+				Planned
+			</th>
+
+			<th class="text-center">
+				Status
+			</th>
+
+			<th class="text-center">
+				Remarks
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for row in employee %}
+<tr>
+                                <td data-pk="{{row.Task_Id}}">{{row.Task_Id}}</td>
+         <td data-name="name" class="name" data-type="text" data-pk="{{row.Task_Id}}">{{row.Name}}</td>
+          <td data-name="frequency" class="frequency" data-type="text" data-pk="{{row.Task_Id}}">{{row.Freq}}</td>
+            <td data-name="task" class="task" data-type="text" data-pk="{{row.Task_Id}}">{{row.Task_Name}}</td>
+           <td data-name="planned" class="planned" data-type="text" data-pk="{{row.Task_Id}}">{{row.Plan_Time}}</td>
+
+             <td data-name="Status" class="status" data-type="select" data-source="{'Work Done': 'Work Done', 'No Work': 'No Work'}" data-pk="{{row.Task_Id}}">{{row.user_status}}</td>
+           <td data-name="Remarks" class="remarks" data-type="text" data-pk="{{row.Task_Id}}">{{row.user_remarks}}</td>
+
+         </tr>
+           {% endfor %}
+	</tbody>
+</table>
+</div>
+    <!--JS Files-->
+<script  src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="   crossorigin="anonymous"></script>
+      <script src="https://vithalreddy.github.io/editable-html-table-js/bootstable.min.js"></script>
+<script>
+ $('#DyanmicTable').SetEditable({ $addButton: $('#addNewRow')});
+</script>
+<style>
+
+    table {
+	width: 750px;
+	border-collapse: collapse;
+	margin:50px auto;
+	color: white;
+
+	}
+
+th {
+	background: #3498db;
+	color: gray;
+	font-weight: bold;
+	position: fixed;
+  left: 0;
+  z-index: 1;
+	}
+
+td, th {
+	padding: 10px;
+	border: 1px solid #000802;
+	text-align: left;
+	font-size: 18px;
+	color: white;
+	position: sticky;
+
+  left: 0;
+  z-index: 1;
+	}
+
+.labels tr td {
+	background-color: #2cc16a;
+	font-weight: bold;
+	color: #000802;
+	color: white;
+}
+
+.label tr td label {
+	display: white;
+	color: black;
+}
+
+
+[data-toggle="toggle"] {
+	display: Click Here;
+}
+
+.panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+.panel-panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+tr:hover {background-color: coral;
+
+}
+
+
+
+</style>
+</html>
+
+{% endblock %}

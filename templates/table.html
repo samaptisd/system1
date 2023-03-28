@@ -1,0 +1,193 @@
+{% extends 'layout.html' %}
+
+{% block title %}Daily Checklist{% endblock %}
+{% block content %}
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>DAILY TASK</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+      <link href="path/to/bootstrap/css/bootstrap.css" rel="stylesheet">
+<script src="path/to/jquery/jquery-1.8.2.min.js"></script>
+<script src="path/to/bootstrap/js/bootstrap.min.js"></script>
+
+      <link href="path/to/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="path/to/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+
+
+       <script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    var dataTable = $('#sample_data').DataTable();
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.status',
+        url:'/updateemployee',
+        title:'Status',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.remarks',
+        url:'/updateemployee',
+        title:'Remarks',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.status',
+        url:'/updateemployee',
+        title:'Status',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#group').editable();
+
+
+});
+
+</script>
+
+
+    </head>
+    <body>
+        <div class="container">
+
+
+            <section class="main">
+     <center> <div class="main-top">
+        <h1>Daily Task Deatils</h1>
+      </div></center>
+
+        <center><div class="card">
+<!--          <img src="./pic/img1.jpg">-->
+          <u><h4>Total Task</h4></u>
+<!--          <p>Ui designer</p>-->
+          <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                          <div class="tbl-header">
+                        <table  class="table table-bordered table-striped"style="width:50%">
+                            <thead>
+                                <tr>
+<th>Name</th>
+                                    <th>Total</th>
+                            <th>Daily</th>
+                            <th>Weekly</th>
+                            <th>Monthly</th>
+                            <th>Quaterly</th>
+                            <th>Yearly</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbl-content">
+                               {% for row in context %}
+<td >{{row.name}}</td>
+                                <td >{{row.Total}}</td>
+                                <td >{{row.Daily}}</td>
+                                 <td >{{row.Weekly}}</td>
+                                <td >{{row.Monthly}}</td>
+                               <td >{{row.Quaterly}}</td>
+                               <td >{{row.Yearly}}</td>
+
+         </tr>
+           {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+
+
+<style>
+
+    table {
+	width: 750px;
+	border-collapse: collapse;
+	margin:50px auto;
+	color: black;
+	}
+
+th {
+	background: #3498db;
+	color: white;
+	font-weight: bold;
+	position: sticky;
+  left: 0;
+  z-index: 1;
+	}
+
+td, th {
+	padding: 10px;
+	border: 1px solid #000802;
+	text-align: left;
+	font-size: 18px;
+	color: black;
+	}
+
+.labels tr td {
+	background-color: #2cc16a;
+	font-weight: bold;
+	color: #000802;
+	color: black;
+}
+
+.label tr td label {
+	display: block;
+	color: black;
+}
+
+
+[data-toggle="toggle"] {
+	display: Click Here;
+}
+
+.panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+.panel-panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+</style>
+</html>
+{% endblock %}

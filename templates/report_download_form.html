@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}DWM Pending Report{% endblock %}
+{% block content %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Download Report</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<body>
+<br>
+<div></div>
+    <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="{{ url_for('downloadreport') }}" method="post" role="login">
+                <img src="{{logo}}" class="img-responsive" alt="logo" /><br>
+                <div style="font-size:20px;font-weight:bold;color:green">Download Report in CSV Format</div><br>
+                <label>Please Select a Report</label>
+                 <select id="reportname" name="reportname" required>
+                     <option value="" disabled selected>Select a Report</option>
+                     <option value="Pending DWM Report">Pending DWM Report</option>
+                     <option value="Completed DWM Report">Completed DWM Report</option>
+                 </select><br><br>
+<!--                <label>Select Start Date</label><br>-->
+<!--                <input type="date" id="startdate" name="startdate" required/><br>-->
+<!--                <label>Select End Date</label><br>-->
+<!--                <input type="date" id="enddate" name="enddate" required/>-->
+                <button type="submit" name="downlaod" class="btn btn-lg btn-primary btn-block">Download Report</button>
+            </form>
+        </div>
+
+</body>
+<style>
+body {
+<!--	background: url({{body}}) no-repeat center center fixed;-->
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+form[role=login] {
+	color: #5d5d5d;
+	background: #f2f2f2;
+	padding: 26px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+form[role=login] input,
+	form[role=login] button {
+		font-size: 18px;
+		margin: 16px 0;
+	}
+
+
+</style>
+</html>
+
+                    {% endblock %}

@@ -1,0 +1,386 @@
+{% extends 'layout.html' %}
+
+{% block title %}Daily Checklist{% endblock %}
+{% block content %}
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>DAILY TASK</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+      <link href="path/to/bootstrap/css/bootstrap.css" rel="stylesheet">
+<script src="path/to/jquery/jquery-1.8.2.min.js"></script>
+<script src="path/to/bootstrap/js/bootstrap.min.js"></script>
+
+      <link href="path/to/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="path/to/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+
+
+       <script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    var dataTable = $('#sample_data').DataTable();
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.status',
+        url:'/dailytask',
+        title:'Status',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.remarks',
+        url:'/dailytask',
+        title:'Remarks',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.status',
+        url:'/updateemployee',
+        title:'Status',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#group').editable();
+
+
+});
+
+</script>
+
+
+    </head>
+    <body>
+        <div class="container">
+
+
+            <section class="main">
+     <center> <div class="main-top">
+        <h1>Daily Task Details</h1>
+      </div></center>
+
+        <center><div class="card"style="width:70%">
+<!--          <img src="./pic/img1.jpg">-->
+          <u><h4>Total Task</h4></u>
+<!--          <p>Ui designer</p>-->
+          <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                          <div class="tbl-header">
+                        <table  class="table table-bordered table-striped"style="width:50%">
+                            <thead>
+                                <tr>
+
+                                    <th>Total</th>
+                            <th>Daily</th>
+                            <th>Weekly</th>
+                            <th>Monthly</th>
+                            <th>Quarterly</th>
+                            <th>Yearly</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbl-content">
+                               {% for row in context %}
+
+                                <td >{{row.Total}}</td>
+                                <td >{{row.Daily}}</td>
+                                 <td >{{row.Weekly}}</td>
+                                <td >{{row.Monthly}}</td>
+                               <td >{{row.Quarterly}}</td>
+                               <td >{{row.Yearly}}</td>
+
+         </tr>
+           {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+  </div></center>
+            <div class="panel panel-default">
+                <div class="panel-heading">DataTable</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                          <div class="tbl-header">
+                        <table id="sample_data" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="display:none;">Task_Id1</th>
+                                    <th>Task_ID</th>
+                                    <th>Name</th>
+                                    <th>Frequency</th>
+                            <th>Task</th>
+
+                            <th>Planned</th>
+                            <th>Status</th>
+                            <th class="remarks" ">Remarks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbl-content">
+
+                                {% for row in employee %}
+<tr>
+    <form action="{{ url_for('dailytask') }}" method="post">
+        <td style="display:none">
+            <input type="text" id="task_id" name="task_id" value="{{row.Task_Id}}" readonly required>
+        </td>
+                                <td data-pk="{{row.Task_Id}}">{{row.Task_Id}}</td>
+         <td data-name="name" class="name" data-type="text" data-pk="{{row.Task_Id}}">{{row.Name}}</td>
+          <td data-name="frequency" class="frequency" data-type="text" data-pk="{{row.Task_Id}}">{{row.Freq}}</td>
+            <td data-name="task" class="task" data-type="text" data-pk="{{row.Task_Id}}">{{row.Task_Name}}</td>
+           <td data-name="planned" class="planned" data-type="text" data-pk="{{row.Task_Id}}">{{row.Plan_Time}}</td>
+
+<!--          <td>-->
+
+<!--              <a href="#" id="group" data-type="select" data-name="Status" data-pk="{{row.Task_Id}}" data-value="5" data-source="{'Work Done': 'Work Done', 'No Work': 'No Work'}" data-url="/updateemployee"  data-original-title="Select Status">{{row.user_status}}</a>-->
+<!--          </td>-->
+
+<!--             <td data-name="Status" class="status" data-type="select" data-source="{'Work Done': 'Work Done', 'No Work': 'No Work'}" data-pk="{{row.Task_Id}}">{{row.user_status}}</td>-->
+<!--           <td data-name="Remarks" class="remarks" data-type="text" data-pk="{{row.Task_Id}}">{{row.user_remarks}}</td>-->
+
+         <td>
+             <select id="status" name="status" required>
+                 <option value="" disabled selected>Select</option>
+                 <option value="Work Done">Work Done</option>
+                 <option value="No Work">No Work</option>
+             </select>
+         </td>
+        <td><input class="remarks" type="text" name="remarks"></td>
+    <td>
+<!--        <input class="a" type="submit" value="Save" />-->
+         <button class="a" type="submit" value="Save">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Save
+    </button>
+    </td>
+        </form>
+         </tr>
+           {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+    </body>
+
+<style>
+
+.remarks{
+    width: 100px;
+}
+
+    table {
+	width: 750px;
+	border-collapse: collapse;
+	margin:50px auto;
+	color: black;
+
+	}
+
+th {
+	background: #3498db;
+	color: white;
+	font-weight: bold;
+	position: fixed;
+  left: 0;
+  z-index: 1;
+	}
+
+td, th {
+	padding: 10px;
+	border: 1px solid #000802;
+	text-align: left;
+	font-size: 18px;
+	color: black;
+	position: sticky;
+  left: 0;
+  z-index: 1;
+	}
+
+.labels tr td {
+	background-color: #2cc16a;
+	font-weight: bold;
+	color: #000802;
+	color: black;
+}
+
+.label tr td label {
+	display: block;
+	color: black;
+}
+
+
+[data-toggle="toggle"] {
+	display: Click Here;
+}
+
+.panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+.panel-panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+
+
+
+.a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+/*   color: #03e9f4; */
+  color: white;
+  background-color: black;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+<!--  margin-top: 40px;-->
+  letter-spacing: 4px
+}
+
+.a:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.a span {
+  position: absolute;
+  display: block;
+}
+
+.a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+
+</style>
+</html>
+{% endblock %}

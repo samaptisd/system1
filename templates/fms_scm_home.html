@@ -1,0 +1,250 @@
+{% extends 'layout.html' %}
+
+{% block title %}FMS: SCM Home{% endblock %}
+{% block content %}
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>FMS: SCM HOME</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+      <link href="path/to/bootstrap/css/bootstrap.css" rel="stylesheet">
+<script src="path/to/jquery/jquery-1.8.2.min.js"></script>
+<script src="path/to/bootstrap/js/bootstrap.min.js"></script>
+
+      <link href="path/to/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="path/to/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+
+    </head>
+    <body>
+        <div class="container">
+
+
+            <section class="main">
+     <center> <div class="main-top">
+        <h1>FMS: SCM HOME</h1>
+         <h2>User ID: {{username}}</h2>
+      </div></center>
+                <fieldset style="background-color:DimGrey;">
+                <table id="fms_home">
+<!--                    <tr>-->
+<!--                        <th>Step No.</th>-->
+<!--                        <th>Step Name</th>-->
+<!--                        <th>Link</th>-->
+<!--                    </tr>-->
+                    <tr>
+                        <td>
+                            RH/GM Approval
+                        </td>
+                        <td>
+                            <a class="btn1" role="button" id="rhGMapproval" href="{{ url_for('fms_scm_rh_gm_approval') }}">Click Here</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Releasing SO
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="releasingSO">Click Here</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Provide SO
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="provideSO">Click Here</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Physical Picking
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="physicalPicking">Click Here</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Delivery & PGI Invoice
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="delivery">Click Here</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Credit Clearance (If Any)
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="creditClearIfAny">Click Here</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Delivery & PGI Invoice (If Any)
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="deliveryIfAny">Click Here</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Loading & Dispatch
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="loadingDispatch">Click Here</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Collection of LR
+                        </td>
+                        <td>
+                            <button class="btn1" role="button" id="collectionLR">Click Here</button>
+                        </td>
+                    </tr>
+                </table>
+                </fieldset>
+            </section>
+        </div>
+    </body>
+
+<style>
+
+    table {
+	width: 750px;
+	border-collapse: collapse;
+	margin:50px auto;
+	color: black;
+
+	}
+
+td {
+<!--	background: #3498db;-->
+<!--	background-color: #2cc16a;-->
+	color: white;
+	font-weight: bold;
+	position: fixed;
+	text-align: left;
+    left: 0;
+    z-index: 1;
+	}
+
+td, th {
+	padding: 10px;
+<!--	border: 1px solid #000802;-->
+	text-align: left;
+	font-size: 30px;
+	color: white;
+	position: sticky;
+    left: 0;
+    z-index: 1;
+    }
+
+.labels tr td {
+	background-color: #2cc16a;
+	font-weight: bold;
+	color: #000802;
+	color: black;
+}
+
+.label tr td label {
+	display: block;
+	color: black;
+}
+
+
+[data-toggle="toggle"] {
+	display: Click Here;
+}
+
+.panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+.panel-panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+
+
+/* CSS */
+.btn1 {
+  align-items: center;
+  background-color: #90EE90; //#fee6e3;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  font-family: Inter,sans-serif;
+  font-size: 20px;
+  height: 48px;
+  justify-content: center;
+  line-height: 24px;
+  max-width: 100%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn1:after {
+  background-color: white; //#111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 48px;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: -2px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
+
+.btn1:hover:after {
+  transform: translate(0, 0);
+}
+
+.btn1:active {
+  background-color: #2E8B57; //#ffdeda;
+  outline: 0;
+}
+
+.btn1:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .btn1 {
+    padding: 0 40px;
+  }
+}
+
+tr:hover {background-color: #778899;}
+
+
+
+</style>
+</html>
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends 'layout.html' %}
+
+{% block title %}NO WORK{% endblock %}
+{% block content %}
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>NO WORK APPROVAL</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+      <link href="path/to/bootstrap/css/bootstrap.css" rel="stylesheet">
+<script src="path/to/jquery/jquery-1.8.2.min.js"></script>
+<script src="path/to/bootstrap/js/bootstrap.min.js"></script>
+
+      <link href="path/to/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="path/to/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+
+
+       <script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    var dataTable = $('#sample_data').DataTable();
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.status',
+        url:'/updatestatus',
+        title:'Status',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.remarks',
+        url:'/updatestatus',
+        title:'Remarks',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#sample_data').editable({
+        container:'body',
+        selector:'td.status',
+        url:'/updatestatus',
+        title:'Status',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
+    $('#group').editable();
+
+
+});
+
+</script>
+
+
+    </head>
+    <body>
+        <div class="container">
+
+
+            <section class="main">
+     <center> <div class="main-top">
+        <h1>No Work Approval</h1>
+      </div></center>
+
+        <center><div class="card"style="width:70%">
+<!--          <img src="./pic/img1.jpg">-->
+          <u><h4>Total Task</h4></u>
+<!--          <p>Ui designer</p>-->
+          <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                          <div class="tbl-header">
+                        <table  class="table table-bordered table-striped"style="width:50%">
+                            <thead>
+                                <tr>
+
+                                    <th>Team Name</th>
+                            <th>Total</th>
+                            <th>Daily</th>
+                            <th>Weekly</th>
+                            <th>Monthly</th>
+                            <th>Quarterly</th>
+                           <th>Yearly</th>
+
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbl-content">
+                               {% for row in summary %}
+
+                                <td >{{row.name}}</td>
+                                <td >{{row.Total}}</td>
+                                 <td >{{row.Daily}}</td>
+                                <td >{{row.Weekly}}</td>
+                               <td >{{row.Monthly}}</td>
+                               <td >{{row.Quaterly}}</td>
+                                <td >{{row.Yearly}}</td>
+
+
+         </tr>
+           {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+  </div></center>
+            <div class="panel panel-default">
+                <div class="panel-heading">DataTable</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                          <div class="tbl-header">
+                        <table id="sample_data" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                           <th>Task_ID</th>
+                            <th>Name</th>
+                            <th>Frequency</th>
+                            <th>Task</th>
+                            <th>Planned</th>
+                            <th>User_Status</th>
+                            <th>Status</th>
+                            <th>Remarks</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbl-content">
+
+                                {% for row in nowork %}
+<tr>
+       <td data-pk="{{row.id}}">{{row.Task_Id}}</td>
+         <td data-name="name" class="name" data-type="text" data-pk="{{row.Task_Id}}">{{row.Name}}</td>
+          <td data-name="frequency" class="frequency" data-type="text" data-pk="{{row.Task_Id}}">{{row.Freq}}</td>
+            <td data-name="task" class="task" data-type="text" data-pk="{{row.Task_Id}}">{{row.Task_Name}}</td>
+           <td data-name="planned" class="planned" data-type="text" data-pk="{{row.Task_Id}}">{{row.Plan_Time}}</td>
+          <td data-name="User_Status" class="User_Status" data-type="text" data-pk="{{row.Task_Id}}">{{row.user_status}}</td>
+
+             <td data-name="Status" class="status" data-type="select" data-source="{'Approved': 'Approved', 'Not Approved': 'Not Approved'}" data-pk="{{row.Task_Id}}">{{row.HOD_status}}</td>
+           <td data-name="Remarks" class="remarks" data-type="text" data-pk="{{row.Task_Id}}">{{row.HOD_remarks}}</td>
+
+         </tr>
+           {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+    </body>
+
+<style>
+
+    table {
+	width: 750px;
+	border-collapse: collapse;
+	margin:50px auto;
+	color: black;
+
+	}
+
+th {
+	background: #3498db;
+	color: white;
+	font-weight: bold;
+	position: fixed;
+  left: 0;
+  z-index: 1;
+	}
+
+td, th {
+	padding: 10px;
+	border: 1px solid #000802;
+	text-align: left;
+	font-size: 18px;
+	color: black;
+	position: sticky;
+  left: 0;
+  z-index: 1;
+	}
+
+.labels tr td {
+	background-color: #2cc16a;
+	font-weight: bold;
+	color: #000802;
+	color: black;
+}
+
+.label tr td label {
+	display: block;
+	color: black;
+}
+
+
+[data-toggle="toggle"] {
+	display: Click Here;
+}
+
+.panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+.panel-panel {
+  position: relative;  /* containing block for headings (top:0) */
+  background: #999;
+}
+
+
+</style>
+</html>
+{% endblock %}

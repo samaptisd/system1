@@ -1,0 +1,321 @@
+{% extends 'layout.html' %}
+
+{% block title %}FMS: SCM RH/GM Approval{% endblock %}
+{% block content %}
+
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>FMS: SCM RH/GM Approval</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <center>
+            <div class="main-top" style="">
+                <h1>FMS: SCM Steps</h1>
+                <h2>User ID: {{username}}</h2>
+            <div style="font-size:50px;"><b>Step: <u>RH/GM Approval</u></b></div>
+            </div>
+            </center>
+<!--            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">-->
+            <center>
+            <table id="myTable" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>SO No</th>
+                    <th>Customer Name</th>
+                    <th>Planned Time</th>
+                    <th>Branch Name</th>
+                    <th>Inter Branch Name</th>
+
+                    <th style="display:none;">SO No1</th>
+                    <th style="display:none;">Customer Name1</th>
+                    <th style="display:none;">Planned Time1</th>
+                    <th style="display:none;">Branch Name1</th>
+                    <th style="display:none;">Inter Branch Name1</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in rh_gm_data %}
+                <tr>
+                    <form action="/fms_scm_rh_gm_approval" method="post">
+                        <td>
+                            {{row.SO_No}}
+                        </td>
+                        <td>
+                           {{row.Customer_Name}}
+                       </td>
+                        <td>
+                           {{row.Planned_Time}}
+                       </td>
+                        <td>
+                           {{row.Branch_Name}}
+                       </td>
+                        <td>
+                           {{row.Inter_Branch_Name}}
+                       </td>
+
+                        <td style="display:none;">
+                            <input style="border:none" type="text" id="so_no" name="so_no" value="{{row.SO_No}}" readonly>
+                        </td>
+                        <td style="display:none;">
+                           <input style="border:none" type="text" id="customer_name" name="customer_name" value="{{row.Customer_Name}}" readonly>
+                       </td>
+                        <td style="display:none;">
+                           <input style="border:none" type="text" id="planned" name="planned" value="{{row.Planned_Time}}" readonly>
+                       </td>
+                        <td style="display:none;">
+                           <input style="border:none" type="text" id="branch" name="branch" value="{{row.Branch_Name}}" readonly>
+                       </td>
+                        <td style="display:none;">
+                           <input style="border:none" type="text" id="interbranch" name="interbranch" value="{{row.Inter_Branch_Name}}" readonly>
+                       </td>
+                        <td>
+                            <select id="status" name="status" required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="Required">Required</option>
+                                <option value="Not Required">Not Required</option>
+                                <OPTION VALUE="Cancel SO">Cancel SO</OPTION>
+                            </select>
+                        </td>
+                        <td><input class="remarks" type="text" name="remarks" required></td>
+                        <td>
+                             <button class="a" type="submit" value="Save">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              Submit
+                             </button>
+                        </td>
+                    </form>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+                </center>
+        </div>
+    <script>
+<!-- Single Search on right-->
+        $(document).ready(function(){
+            $('#myTable').DataTable();
+        });
+
+<!--&lt;!&ndash;Column Wise Search&ndash;&gt;-->
+<!--$('#myTable thead th').each(function () {-->
+<!--        var title = $(this).text();-->
+<!--        $(this).html('<label>' + title + '<br><input style="width:100;height:25px;text-align:left;" type="text" \-->
+<!--        placeholder="Search ' + title +'" /></label>');-->
+<!--    });-->
+
+<!--    // DataTable-->
+<!--    var table = $('#myTable').DataTable({-->
+<!--        scrollY: 500,-->
+<!--        scrollX: true,-->
+<!--        initComplete: function () {-->
+<!--            // Apply the search-->
+<!--            this.api()-->
+<!--                .columns()-->
+<!--                .every(function () {-->
+<!--                    var that = this;-->
+
+<!--                    $('input', this.header()).on('keyup change clear', function () {-->
+<!--                        if (that.search() !== this.value) {-->
+<!--                            that.search(this.value).draw();-->
+<!--                        }-->
+<!--                    });-->
+
+<!--                    $('input', this.header()).on('click', function(e) {-->
+<!--                        e.stopPropagation();-->
+<!--                    });-->
+
+<!--                });-->
+<!--        },-->
+
+<!--    });-->
+    </script>
+    </body>
+
+<style>
+
+<!--body{-->
+<!--    background-color: lightgreen !important;-->
+<!--}-->
+
+
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid black !important;;
+    border-radius: 3px !important;;
+    padding: 5px !important;;
+    background-color: white !important;;
+    margin-left: 3px !important;;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: white;
+    padding: 4px;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: inherit;
+    font-weight: bold;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: 0.5em 1em;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none !important;
+    font-weight: bold;
+    cursor: pointer;
+<!--    color: inherit !important;-->
+    border: 1px solid rgb(13 110 253 / 92%) !important;
+    border-radius: 2px;
+<!--    background: #262121;-->
+}
+
+
+
+table,
+tr,
+td,
+th {
+   border: 1px solid blue;
+   padding: 2px;
+<!--   background-color: skyblue;-->
+}
+
+table th {
+   background-color: #69bbbf !important;
+   position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
+}
+
+
+
+
+.a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+/*   color: #03e9f4; */
+  color: white;
+  background-color: black;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+<!--  margin-top: 40px;-->
+  letter-spacing: 4px
+}
+
+.a:hover {
+  background: #03e9f4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.a span {
+  position: absolute;
+  display: block;
+}
+
+.a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+
+</style>
+</html>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<center><h1>Profile Page</h1></center>
+<center><div>
+    <p>Your account details are below:</p>
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td>{{ account['username'] }}</td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>{{ account['password'] }} <a href="{{url_for('changepassword')}}"> [Change Password]</a> </td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ account['emailid'] }}</td>
+        </tr>
+    </table>
+</div></center>
+<style>
+    a{
+    font-weight: bold;
+    font-size: 20px;
+    color: green;
+    }
+</style>
+{% endblock %}
